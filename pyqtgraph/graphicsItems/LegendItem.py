@@ -101,6 +101,15 @@ class LegendItem(GraphicsWidget, GraphicsWidgetAnchor):
                 label.close()
                 self.updateSize()                       # redraq box
 
+    def clear(self):
+        """
+        Removes all items from the legend.
+
+        Useful for reusing and dynamically updating charts and their legends.
+        """
+        while self.items != []:
+            self.removeItem(self.items[0][1].text)
+                
     def updateSize(self):
         if self.size is not None:
             return
@@ -129,6 +138,7 @@ class LegendItem(GraphicsWidget, GraphicsWidgetAnchor):
         
     def mouseDragEvent(self, ev):
         if ev.button() == QtCore.Qt.LeftButton:
+            ev.accept()
             dpos = ev.pos() - ev.lastPos()
             self.autoAnchor(self.pos() + dpos)
 
